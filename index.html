@@ -67,7 +67,7 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        // IMPORTANTE: Se añade "-test" a la URL para que funcione con el botón "Execute Workflow"
+        // CORRECCIÓN 1: Usamos la URL de prueba para que n8n reciba los datos ahora
         const response = await fetch('https://tlemus38.app.n8n.cloud/webhook-test/demo-form', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -76,18 +76,18 @@ form.addEventListener('submit', async (e) => {
 
         if (response.ok) {
             const data = await response.json();
-            // Corregido: Ahora busca 'url' que es lo que envía tu n8n
+            // CORRECCIÓN 2: Cambiado a data.url para que coincida con tu nodo de n8n
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                alert('¡Datos recibidos! Pero n8n no envió la dirección de redirección.');
+                alert('¡Datos recibidos! Pero no se encontró la dirección de WhatsApp.');
             }
         } else {
-            alert('Error al procesar la información. Revisa n8n.');
+            alert('Error al procesar la información en n8n. Revisa el flujo.');
         }
 
     } catch (error) {
-        alert('Error al conectar con n8n. Asegúrate de que el flujo esté en modo "Escuchando".');
+        alert('Error al conectar con n8n. Asegúrate de que el flujo esté "Escuchando".');
         console.error(error);
     } finally {
         btn.disabled = false;
