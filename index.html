@@ -39,7 +39,7 @@ form.addEventListener('submit', function(e) {
         fecha: new Date().toLocaleString()
     };
 
-    // 1. Enviamos los datos a n8n en segundo plano (Test URL)
+    // 1. Enviamos los datos a n8n en segundo plano
     fetch('https://tlemus38.app.n8n.cloud/webhook-test/demo-form', {
         method: 'POST',
         mode: 'no-cors', 
@@ -47,7 +47,7 @@ form.addEventListener('submit', function(e) {
         body: JSON.stringify(datos)
     });
 
-    // 2. Abrimos WhatsApp inmediatamente
+    // 2. Abrimos WhatsApp inmediatamente sin esperar a n8n
     const mensaje = encodeURIComponent(`Hola ${nombre}, ¡bienvenido al demo de Tommy!`);
     const urlWhatsapp = `https://wa.me/${whatsapp}?text=${mensaje}`;
     
