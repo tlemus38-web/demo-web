@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Tomas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; text-align: center; }
+        .contenedor { max-width: 400px; background: white; padding: 20px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; }
+        button { background: #25D366; color: white; border: none; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <h1>Demo Web</h1>
+    <p>Ingresa tus datos para la automatización</p>
+    <form id="formularioDemo">
+        <input type="text" id="nombre" placeholder="Tu Nombre" required>
+        <input type="tel" id="whatsapp" placeholder="Tu WhatsApp (ej: 57310...)" required>
+        <button type="submit" id="btnEnviar">Enviar</button>
+    </form>
+</div>
+
 <script>
 const form = document.getElementById('formularioDemo');
 form.addEventListener('submit', function(e) {
@@ -14,20 +39,23 @@ form.addEventListener('submit', function(e) {
         fecha: new Date().toLocaleString()
     };
 
-    // 1. Enviamos los datos a n8n en segundo plano
+    // 1. Enviamos los datos a n8n en segundo plano (Test URL)
     fetch('https://tlemus38.app.n8n.cloud/webhook-test/demo-form', {
         method: 'POST',
-        mode: 'no-cors', // Evita el error de conexión
+        mode: 'no-cors', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
     });
 
-    // 2. Abrimos WhatsApp inmediatamente sin esperar a n8n
+    // 2. Abrimos WhatsApp inmediatamente
     const mensaje = encodeURIComponent(`Hola ${nombre}, ¡bienvenido al demo de Tommy!`);
     const urlWhatsapp = `https://wa.me/${whatsapp}?text=${mensaje}`;
     
     setTimeout(() => {
         window.location.href = urlWhatsapp;
-    }, 500); // Pequeña pausa para asegurar el envío
+    }, 500); 
 });
 </script>
+
+</body>
+</html>
